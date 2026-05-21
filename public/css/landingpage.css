@@ -17,6 +17,9 @@ main {
     height: 100%;
     width: 100%;
     background-color: #e2d3d3;
+    /* Force GPU compositing layer for the whole layout */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
 }
 
 /* HAMBURGER MENU */
@@ -161,70 +164,111 @@ footer {
 
 .login-drp {
     background-color: #FFDAB3;
-    margin-top: 100px;
+    margin-top: 60px;
     justify-content: center;
-    border-radius: 30px;
-    padding: 8%;
-    padding-left: 0;
+    border-radius: 16px;
+    padding: 14px 18px;
     border: none;
     box-shadow:
-    8px 8px 15px #ccb194,
-    -8px -8px 15px #796363;
+        8px 8px 15px #ccb194,
+        -8px -8px 15px #796363;
+    position: relative;
+    flex-wrap: wrap;
+    gap: 6px;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .login-drp:hover {
-    box-shadow: 
-    -2px -2px 5px #796363,
-    inset 8px 8px 15px #ccb194;
+    box-shadow:
+        -2px -2px 5px #796363,
+        inset 6px 6px 12px #ccb194;
+}
+
+.drp-arrow {
+    font-size: 0.65rem;
+    color: #442c2c;
+    transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+    margin-left: auto;
+}
+
+.login-drp:hover .drp-arrow {
+    transform: rotate(180deg);
 }
 
 .side-guest {
-    margin-top: -15px;
+    margin-top: -10px;
     color: #44474b;
-    font-size: 1rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
 }
 
-/* Mobile styles */
+.side-guest:hover {
+    color: #b33232;
+}
 
 .dropdown {
     position: absolute;
-    top: 0;
-    right: 2;  /* Aligns the dropdown to the right */
-    margin-left: 28rem;
-    margin-top: -1.5rem;
-    align-items: center;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
     background-color: #FFDAB3;
-    width: 200px;
-    border-radius: 10px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    opacity: 0; /* Initially hidden */
-    transform: translateX(-50%); /* Positioned off-screen to the right */
-    pointer-events: none; /* Prevent interactions while hidden */
-    transition: transform 0.3s ease, opacity 0.3s ease; 
-    z-index: 1;
-    
+    width: 160px;
+    border-radius: 14px;
+    box-shadow:
+        0 12px 30px rgba(68, 44, 44, 0.22),
+        0 2px 8px rgba(68, 44, 44, 0.1);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.25s ease;
+    z-index: 1000;
+    overflow: hidden;
 }
 
 .dropdown ul {
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding: 6px 0;
 }
 
 .dropdown ul li {
-    justify-content: center;
-    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-start;
+    padding: 13px 18px;
+    color: #442c2c;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dropdown ul li i {
+    font-size: 0.85rem;
+    color: #b33232;
+    min-width: 16px;
+    transition: color 0.2s ease;
 }
 
 .dropdown ul li:hover {
     transform: none;
-    background-color: #ffa07a;
+    background-color: rgba(179, 50, 50, 0.12);
+    color: #b33232;
 }
 
+.dropdown ul li:hover i {
+    color: #b33232;
+}
+
+.dropdown ul li + li {
+    border-top: 1px solid rgba(68, 44, 44, 0.1);
+}
 
 .login-drp:hover .dropdown {
-    opacity: 1; 
-    transform: translateX(0); 
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
     pointer-events: auto;
 }
 
@@ -236,6 +280,10 @@ footer {
 .mySwiper {
     flex: 1;
     overflow: hidden;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .home-slide {
@@ -259,11 +307,21 @@ footer {
 
 .SideImg {
     margin-right: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
 .SideImg img {
     height: 100%;
-    
+    width: auto;
+    display: block;
+    /* Move GIF to its own compositor layer to prevent jank */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: contents;
+    image-rendering: auto;
 }
 
 
@@ -394,7 +452,8 @@ footer {
     height: 100vh;
     overflow: hidden;
     background-color: #343a40;
-    
+    perspective: 1200px;
+    -webkit-perspective: 1200px;
 }
 
 .swiper-slide {
@@ -404,6 +463,12 @@ footer {
     background-image: url(../img/bghome4.png);
     background-position: center;
     background-size: cover;
+    /* GPU compositing — critical for smooth cube transitions */
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: transform;
 }
 
 
@@ -728,8 +793,6 @@ footer {
 
 .contact {
     padding: 4vw;
-    visibility: hidden;
-    
 }
 
 .contact-info-form {
@@ -743,10 +806,10 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    
     justify-items: center;
     height: 100%;
-    width: 10vw;
+    min-width: 180px;
+    width: clamp(180px, 18vw, 280px);
 }
 
 .contactinfo {
@@ -757,12 +820,12 @@ footer {
 }
 
 .contactinfo h3 {
-    font-size: 1vw;
+    font-size: clamp(13px, 1vw, 16px);
 }
 
 .contactinfo p {
     text-align: center;
-    font-size: 0.8vw;
+    font-size: clamp(11px, 0.85vw, 14px);
 }
 
 .contactinfo i {

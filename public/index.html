@@ -56,14 +56,16 @@
                 <li class="nav-item" onclick="Navigate(4)"><i class="icon fa-solid fa-phone"></i>
                     <p>Contact Us</p>
                 </li>
-                <li class="login-drp">
-                        <i class="icon"></i>
-                        <p class="login-as">Login As</p>     
-                        <div class="dropdown">
-                            <ul>
-                                <li class="drp-item">Client</li>
-                                <li class="drp-item">Admin</li>
-                        </div>      
+                <li class="login-drp" id="loginDropdown">
+                    <i class="icon fa-solid fa-user"></i>
+                    <p class="login-as">Login As</p>
+                    <i class="fa-solid fa-chevron-down drp-arrow"></i>
+                    <div class="dropdown">
+                        <ul>
+                            <li class="drp-item"><i class="fa-solid fa-user-tie"></i> Client</li>
+                            <li class="drp-item"><i class="fa-solid fa-user-shield"></i> Admin</li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="side-guest">Continue as Guest</li>
             </ul>
@@ -124,7 +126,7 @@
                     </div>
                     <div class="SideImg">
                         
-                        <img src="img/homebg_strip.gif" alt="">
+                        <img src="img/homebg_strip.gif" alt="" decoding="async" loading="eager">
                         
                     </div>
 
@@ -345,7 +347,7 @@
                         </div>
                         
                         <div class="company-vission">
-                            <h1 class="heading stylized-heading">Our Vission</h1>
+                            <h1 class="heading stylized-heading">Our Vision</h1>
                             <h2>To become a leading construction company recognized for transforming and innovating the landscape of communities through our commitment to excellence, integrity, and responsible building practices</h2>                        
                         </div>
                     </div>
@@ -414,13 +416,16 @@
                             </div>
                             <div class="contactinfo"><i class="fa-solid fa-globe"></i>
                                 <h3>Website</h3>
-                                <p>www.abc123.com</p>
+                                <p>www.alpharex.net</p>
                             </div>
                         </div>
                         <form id="contactForm">
+                            <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+                            <input type="hidden" name="from_name" value="Alpharex Website">
+                            <input type="hidden" name="subject" value="New Contact Form Submission">
                             <h2>Send Us A Message</h2>
                             <input type="text" id="name" name="name" placeholder="Name" required>
-                            <input type="text" id="email" name="email" placeholder="email" required>
+                            <input type="email" id="email" name="email" placeholder="Email" required>
 
                             
                             <textarea rows="10" id="message" name="message" placeholder="Type your Message Here..." required></textarea>
