@@ -12,380 +12,299 @@
 </head>
 <body>
 
-    <!-- SVG Arrow Symbols -->
-    <svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
-        <symbol id="arrow-right" viewBox="0 0 48 24">
-            <path d="M8 5l7 7-7 7" stroke="#b33232" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M24 5l7 7-7 7" stroke="#b33232" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        </symbol>
-    </svg>
-    <svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
-        <symbol id="arrow-right-black" viewBox="0 0 48 24">
-            <path d="M8 5l7 7-7 7" stroke="black" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M24 5l7 7-7 7" stroke="black" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        </symbol>
-    </svg>
-
-    <!-- Mobile hamburger -->
-    <button class="hamburger" id="hamburger" onclick="toggleSidebar()" aria-label="Toggle menu">
-        <i class="fas fa-bars"></i>
-    </button>
-
-    <!-- Mobile overlay -->
-    <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
-
-    <div class="guest-layout">
-
-        <!-- ===== SIDEBAR ===== -->
-        <aside id="sidebar">
-            <div class="sidebar-brand" onclick="scrollToSection('welcome')">
-                <img src="img/brandlogo.png" alt="Alpharex Logo" class="sidebar-logo">
-                <img src="img/textlogo.png" alt="Alpharex" class="sidebar-textlogo">
+    <!-- ===== TOP NAVBAR ===== -->
+    <nav class="top-nav" id="top-nav">
+        <div class="nav-inner">
+            <div class="nav-brand" onclick="navScroll('hero')">
+                <img src="img/brandlogo.png" alt="Alpharex" class="nav-brandlogo">
+                <img src="img/textlogo.png" alt="Alpharex" class="nav-textlogo">
             </div>
 
-            <nav>
-                <ul class="sidebar-nav">
-                    <li class="s-nav-item active" data-section="welcome" onclick="scrollToSection('welcome')">
-                        <i class="fa-solid fa-house"></i><span>Home</span>
-                    </li>
-                    <li class="s-nav-item" data-section="services" onclick="scrollToSection('services')">
-                        <i class="fa-solid fa-person-digging"></i><span>Services</span>
-                    </li>
-                    <li class="s-nav-item" data-section="clients" onclick="scrollToSection('clients')">
-                        <i class="fa-solid fa-handshake"></i><span>Clients</span>
-                    </li>
-                    <li class="s-nav-item" data-section="about" onclick="scrollToSection('about')">
-                        <i class="fa-solid fa-hard-drive"></i><span>Company</span>
-                    </li>
-                    <li class="s-nav-item" data-section="contact" onclick="scrollToSection('contact')">
-                        <i class="fa-solid fa-phone"></i><span>Contact</span>
-                    </li>
-                </ul>
-            </nav>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#hero"     class="nav-link active" onclick="navScroll('hero')">Home</a></li>
+                <li><a href="#services" class="nav-link" onclick="navScroll('services')">Services</a></li>
+                <li><a href="#clients"  class="nav-link" onclick="navScroll('clients')">Clients</a></li>
+                <li><a href="#company"  class="nav-link" onclick="navScroll('company')">Company</a></li>
+                <li><a href="#contact"  class="nav-link" onclick="navScroll('contact')">Contact</a></li>
+            </ul>
 
-            <div class="sidebar-cta">
-                <a href="/" class="back-btn">
-                    <i class="fa-solid fa-arrow-left"></i>
-                    Main Site
+            <div class="nav-right">
+                <a href="/" class="nav-cta">
+                    <i class="fa-solid fa-arrow-left"></i> Main Site
                 </a>
+                <button class="nav-toggle" id="nav-toggle" onclick="toggleMobileNav()" aria-label="Toggle navigation">
+                    <i class="fas fa-bars" id="nav-icon"></i>
+                </button>
             </div>
+        </div>
+    </nav>
 
-            <footer class="sidebar-footer">
-                <p>© 2025 Alpharex, OPC</p>
-            </footer>
-        </aside>
+    <!-- ===== HERO ===== -->
+    <section id="hero" class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <p class="hero-eyebrow">ALPHAREX OPC</p>
+            <h1>Building<br><span>Your Vision</span></h1>
+            <p class="hero-sub">
+                From meticulous electrical installations to innovative fit-out works —
+                we deliver excellence, integrity, and innovation on every project.
+            </p>
+            <div class="hero-btns">
+                <button class="btn-primary" onclick="navScroll('services')">
+                    <i class="fa-solid fa-person-digging"></i> Our Services
+                </button>
+                <button class="btn-outline" onclick="navScroll('contact')">
+                    Get In Touch <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <span>Scroll Down</span>
+            <i class="fa-solid fa-chevron-down fa-bounce"></i>
+        </div>
+    </section>
 
-        <!-- ===== MAIN CONTENT ===== -->
-        <main class="guest-content" id="guest-content">
-
-            <!-- HERO -->
-            <section id="welcome" class="g-section hero-section">
-                <div class="hero-overlay"></div>
-                <div class="hero-text">
-                    <p class="hero-eyebrow">Welcome, Guest</p>
-                    <h1 class="heading">Your Power,<br>Our Passion</h1>
-                    <p class="hero-desc">
-                        At <strong>ALPHAREX</strong>, challenges are not obstacles — they are opportunities
-                        for growth and innovation. Our team of skilled professionals eagerly embraces
-                        complexity and delivers exceptional results on every project.
-                    </p>
-                    <div class="hero-actions">
-                        <button class="animated-btn" onclick="scrollToSection('services')">
-                            <svg width="24" height="24" class="arr-1"><use href="#arrow-right-black"></use></svg>
-                            <span class="buttontext">Our Services</span>
-                            <svg width="24" height="24" class="arr-2"><use href="#arrow-right"></use></svg>
-                        </button>
-                        <button class="animated-btn" onclick="scrollToSection('contact')">
-                            <svg width="24" height="24" class="arr-1"><use href="#arrow-right-black"></use></svg>
-                            <span class="buttontext">Contact Us</span>
-                            <svg width="24" height="24" class="arr-2"><use href="#arrow-right"></use></svg>
-                        </button>
-                    </div>
-                </div>
-                <div class="hero-wordmark" aria-hidden="true">
-                    <span>RELIABILITY</span>
-                    <span>INNOVATION</span>
-                    <span>QUALITY</span>
-                    <span>INTEGRITY</span>
-                </div>
-                <div class="scroll-hint">
-                    <i class="fa-solid fa-chevron-down fa-bounce"></i>
-                    <span>Scroll to explore</span>
-                </div>
-            </section>
-
-            <!-- SERVICES -->
-            <section id="services" class="g-section">
-                <div class="section-header">
-                    <h1 class="heading">Services</h1>
-                    <p class="section-sub">A comprehensive range of services tailored to meet your every need.</p>
-                </div>
-                <div class="services-grid">
-                    <div class="service-card reveal">
-                        <div class="service-icon"><i class="fa-solid fa-pen-ruler"></i></div>
-                        <h3>FIT-OUT WORKS</h3>
-                        <p>With a fusion of creativity and meticulous craftmanship, we tailor-fit interiors that reflect your unique style and brand identity.</p>
-                    </div>
-                    <div class="service-card reveal">
-                        <div class="service-icon"><i class="fa-solid fa-plug-circle-check"></i></div>
-                        <h3>ELECTRICAL WORKS</h3>
-                        <p>Elevate your space to a whole new level of functionality and aesthetics with precision electrical solutions.</p>
-                    </div>
-                    <div class="service-card reveal">
-                        <div class="service-icon"><i class="fa-solid fa-bolt"></i></div>
-                        <h3>ELV SYSTEMS</h3>
-                        <p>A wide array of auxiliary systems — CCTV, Structured Cabling, Alarm, ACS, and Data & Telephone Systems.</p>
-                    </div>
-                    <div class="service-card reveal">
-                        <div class="service-icon"><i class="fa-solid fa-shield-halved"></i></div>
-                        <h3>MEPF PROTECTION</h3>
-                        <p>Comprehensive Mechanical, Electrical, Plumbing, and Fire Protection solutions for your peace of mind.</p>
-                    </div>
-                    <div class="service-card reveal">
-                        <div class="service-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-                        <h3>CONSTRUCTION</h3>
-                        <p>Enhancing efficiency and guaranteeing a well-rounded, top-tier construction experience on every project.</p>
-                    </div>
-                    <div class="service-card reveal">
-                        <div class="service-icon"><i class="fa-solid fa-pen-nib"></i></div>
-                        <h3>DESIGN</h3>
-                        <p>Crafting innovative, functional, and aesthetically pleasing solutions that blend creativity with precision.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- CLIENTS -->
-            <section id="clients" class="g-section clients-section">
-                <div class="section-header">
-                    <h1 class="heading">Our Valued Clients</h1>
-                    <p class="section-sub">Alpharex builds dreams and relationships with integrity.</p>
-                </div>
-                <div class="clients-grid">
-                    <div class="client-card reveal">
-                        <img src="img/slide9_img.png" alt="Ulticon Builders" loading="lazy">
-                        <div class="client-info"><h3>ULTICON BUILDERS, INC.</h3><ul><li>Meter Separation for 5 Units</li></ul></div>
-                    </div>
-                    <div class="client-card reveal">
-                        <img src="img/slide10_img.png" alt="Menarco" loading="lazy">
-                        <div class="client-info"><h3>MENARCO DEVELOPMENT CORP.</h3><ul><li>Electrical Meter Separation</li></ul></div>
-                    </div>
-                    <div class="client-card reveal">
-                        <img src="img/slide11_img.png" alt="Amicassa Makati" loading="lazy">
-                        <div class="client-info"><h3>AMICASSA [MAKATI]</h3><ul><li>CCTV System</li></ul></div>
-                    </div>
-                    <div class="client-card reveal">
-                        <img src="img/slide7_img.png" alt="Uni-President" loading="lazy">
-                        <div class="client-info"><h3>UNI-PRESIDENT ENTERPRISES CORP.</h3><ul><li>Meter Separation for 5 Units</li></ul></div>
-                    </div>
-                    <div class="client-card reveal">
-                        <img src="img/slide13_img.png" alt="Cross Property" loading="lazy">
-                        <div class="client-info"><h3>CROSS PROPERTY MANAGEMENT</h3><ul><li>Dismantling &amp; Decommissioning Works</li></ul></div>
-                    </div>
-                    <div class="client-card reveal">
-                        <img src="img/slide14_img.png" alt="Fanatics" loading="lazy">
-                        <div class="client-info"><h3>FANATICS</h3><ul><li>Electrical Meter Separation</li></ul></div>
-                    </div>
-                    <div class="client-card reveal">
-                        <img src="img/slide15_img.png" alt="Morton's Steakhouse" loading="lazy">
-                        <div class="client-info"><h3>MORTON'S STEAKHOUSE</h3><ul><li>Electrical Meter Separation</li></ul></div>
-                    </div>
-                    <div class="client-card reveal">
-                        <img src="img/slide1_img.png" alt="Partners Group" loading="lazy">
-                        <div class="client-info"><h3>PARTNERS GROUP</h3><ul><li>Network Switches Relocation</li><li>Patching &amp; Data Works</li></ul></div>
-                    </div>
-                    <div class="client-card reveal">
-                        <img src="img/slide2_img.png" alt="UP Shopping Center" loading="lazy">
-                        <div class="client-info"><h3>UP SHOPPING CENTER</h3><ul><li>Supply &amp; Installation of Smart Meters</li></ul></div>
-                    </div>
-                    <div class="client-card reveal">
-                        <img src="img/slide3_img.png" alt="Hard Rock Cafe" loading="lazy">
-                        <div class="client-info"><h3>HARD ROCK CAFE</h3><ul><li>CCTV Tracing, Troubleshooting &amp; Commissioning</li></ul></div>
-                    </div>
-                    <div class="client-card reveal">
-                        <img src="img/slide4_img.png" alt="Amazon" loading="lazy">
-                        <div class="client-info"><h3>AMAZON</h3><ul><li>Annual Preventive Maintenance (9F–12F)</li></ul></div>
-                    </div>
-                    <div class="client-card reveal">
-                        <img src="img/slide5_img.png" alt="Sucree Coco" loading="lazy">
-                        <div class="client-info"><h3>SUCREE COCO AND LOVE</h3><ul><li>Meter Separation for 5 Units</li></ul></div>
-                    </div>
-                    <div class="client-card reveal">
-                        <img src="img/slide6_img.png" alt="Greenhills Tower" loading="lazy">
-                        <div class="client-info"><h3>GREENHILLS TOWER</h3><ul><li>Structured Cabling System</li></ul></div>
-                    </div>
-                    <div class="client-card reveal">
-                        <img src="img/slide12_img.png" alt="Amicassa Pampanga" loading="lazy">
-                        <div class="client-info"><h3>AMICASSA [PAMPANGA]</h3><ul><li>Dismantling &amp; Decommissioning Works</li></ul></div>
-                    </div>
-                    <div class="client-card reveal">
-                        <img src="img/slide8_img.png" alt="Propel Manila" loading="lazy">
-                        <div class="client-info"><h3>PROPEL MANILA</h3><ul><li>Meter Separation for 5 Units</li></ul></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ABOUT -->
-            <section id="about" class="g-section">
-                <div class="section-header">
-                    <h1 class="heading">About Alpharex</h1>
-                    <p class="section-sub">Building with integrity, delivering with excellence.</p>
-                </div>
-                <div class="misvis-grid">
-                    <div class="misvis-card reveal">
-                        <h2 class="heading">Our Mission</h2>
-                        <p>To deliver exceptional construction services with unwavering integrity, turning our clients' visions into reality through innovative, sustainable, and quality-driven practices.</p>
-                    </div>
-                    <div class="misvis-card reveal">
-                        <h2 class="heading">Our Vision</h2>
-                        <p>To become a leading construction company recognized for transforming and innovating the landscape of communities through our commitment to excellence, integrity, and responsible building practices.</p>
-                    </div>
-                </div>
-                <div class="values-grid">
-                    <div class="value-card reveal">
-                        <i class="fa-solid fa-handshake-angle"></i>
-                        <h3>RELIABILITY</h3>
-                        <p>Consistent and dependable on all projects, delivering on time and within budget.</p>
-                    </div>
-                    <div class="value-card reveal">
-                        <i class="fa-solid fa-lightbulb"></i>
-                        <h3>INNOVATION</h3>
-                        <p>Embracing creativity and forward-thinking to drive continuous improvement.</p>
-                    </div>
-                    <div class="value-card reveal">
-                        <i class="fa-solid fa-star"></i>
-                        <h3>QUALITY</h3>
-                        <p>Striving for excellence — every project meets or exceeds client expectations.</p>
-                    </div>
-                    <div class="value-card reveal">
-                        <i class="fa-solid fa-scale-balanced"></i>
-                        <h3>INTEGRITY</h3>
-                        <p>Upholding honesty, transparency, and ethical conduct across all business aspects.</p>
-                    </div>
-                    <div class="value-card reveal">
-                        <i class="fa-solid fa-file-invoice"></i>
-                        <h3>ACCOUNTABILITY</h3>
-                        <p>Taking responsibility for all outcomes and learning from every experience.</p>
-                    </div>
-                    <div class="value-card reveal">
-                        <i class="fa-solid fa-hand-holding-heart"></i>
-                        <h3>RESPECT</h3>
-                        <p>Treating all individuals with dignity and valuing diversity and inclusivity.</p>
-                    </div>
-                </div>
-                <div class="company-img-banner reveal">
-                    <img src="img/company-devices.png" alt="Alpharex Devices" loading="lazy">
-                </div>
-            </section>
-
-            <!-- CONTACT -->
-            <section id="contact" class="g-section contact-section">
-                <div class="section-header">
-                    <h1 class="heading">Contact Us</h1>
-                    <p class="section-sub">We'd love to hear from you. Let's build something great together.</p>
-                </div>
-                <div class="contact-layout">
-                    <div class="contact-details reveal">
-                        <div class="contact-item">
-                            <i class="fa-solid fa-phone"></i>
-                            <div><h4>Mobile</h4><p>+63 965 523 0279</p></div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fa-solid fa-location-dot"></i>
-                            <div>
-                                <h4>Location</h4>
-                                <p>Blk 3, Lot 19, Phase 1, Amaia Scapes Rizal,<br>Barangay Tatala, Binangonan, Rizal</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fa-regular fa-envelope"></i>
-                            <div><h4>Email</h4><p>services@alpharex.net</p></div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fa-solid fa-globe"></i>
-                            <div><h4>Website</h4><p>www.alpharex.net</p></div>
-                        </div>
-                    </div>
-
-                    <form id="guestContactForm" class="contact-form reveal">
-                        <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
-                        <input type="hidden" name="from_name" value="Alpharex Website (Guest)">
-                        <input type="hidden" name="subject" value="New Contact Form Submission">
-                        <h3>Send Us A Message</h3>
-                        <div class="form-row">
-                            <input type="text" name="name" placeholder="Your Name" required>
-                            <input type="email" name="email" placeholder="Your Email" required>
-                        </div>
-                        <textarea name="message" rows="6" placeholder="Your Message..." required></textarea>
-                        <button type="submit" class="animated-btn submit-btn" id="guestSubmitBtn">
-                            <svg width="24" height="24" class="arr-1"><use href="#arrow-right-black"></use></svg>
-                            <span class="buttontext">Send Message</span>
-                            <svg width="24" height="24" class="arr-2"><use href="#arrow-right"></use></svg>
-                        </button>
-                        <p class="form-status" id="formStatus"></p>
-                    </form>
-                </div>
-            </section>
-
-            <footer class="guest-footer">
-                <p>Copyright &copy; 2025 Alpharex, OPC. All rights reserved.</p>
-            </footer>
-
-        </main>
+    <!-- ===== STATS BAR ===== -->
+    <div class="stats-bar">
+        <div class="stat reveal">
+            <h2>15<span>+</span></h2>
+            <p>Valued Clients</p>
+        </div>
+        <div class="stat reveal">
+            <h2>6<span></span></h2>
+            <p>Core Services</p>
+        </div>
+        <div class="stat reveal">
+            <h2>100<span>%</span></h2>
+            <p>Commitment</p>
+        </div>
+        <div class="stat reveal">
+            <h2>24<span>/7</span></h2>
+            <p>Support</p>
+        </div>
     </div>
 
+    <!-- ===== SERVICES ===== -->
+    <section id="services" class="g-section services-section">
+        <div class="section-header">
+            <span class="section-label">What We Do</span>
+            <h2 class="heading">Our Services</h2>
+            <p class="section-sub">A comprehensive range of services tailored to meet your every construction need.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <div class="service-icon"><i class="fa-solid fa-pen-ruler"></i></div>
+                <h3>FIT-OUT WORKS</h3>
+                <p>With a fusion of creativity and meticulous craftmanship, we tailor-fit interiors that reflect your unique style and brand identity.</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon"><i class="fa-solid fa-plug-circle-check"></i></div>
+                <h3>ELECTRICAL WORKS</h3>
+                <p>Elevate your space to a whole new level of functionality and aesthetics with precision electrical solutions.</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon"><i class="fa-solid fa-bolt"></i></div>
+                <h3>ELV SYSTEMS</h3>
+                <p>A wide array of auxiliary systems — CCTV, Structured Cabling, Alarm, ACS, and Data & Telephone Systems.</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3>MEPF PROTECTION</h3>
+                <p>Comprehensive Mechanical, Electrical, Plumbing, and Fire Protection solutions for your peace of mind.</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                <h3>CONSTRUCTION</h3>
+                <p>Enhancing efficiency and guaranteeing a well-rounded, top-tier construction experience on every project.</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon"><i class="fa-solid fa-pen-nib"></i></div>
+                <h3>DESIGN</h3>
+                <p>Crafting innovative, functional, and aesthetically pleasing solutions that blend creativity with precision.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CLIENTS ===== -->
+    <section id="clients" class="g-section clients-section">
+        <div class="section-header">
+            <span class="section-label">Who We Serve</span>
+            <h2 class="heading heading-light">Our Valued Clients</h2>
+            <p class="section-sub section-sub-light">Alpharex builds dreams and long-term relationships with integrity.</p>
+        </div>
+        <div class="clients-grid">
+            <div class="client-card reveal"><img src="img/slide9_img.png" alt="Ulticon Builders" loading="lazy"><div class="client-info"><h3>ULTICON BUILDERS, INC.</h3><ul><li>Meter Separation for 5 Units</li></ul></div></div>
+            <div class="client-card reveal"><img src="img/slide10_img.png" alt="Menarco" loading="lazy"><div class="client-info"><h3>MENARCO DEVELOPMENT CORP.</h3><ul><li>Electrical Meter Separation</li></ul></div></div>
+            <div class="client-card reveal"><img src="img/slide11_img.png" alt="Amicassa Makati" loading="lazy"><div class="client-info"><h3>AMICASSA [MAKATI]</h3><ul><li>CCTV System</li></ul></div></div>
+            <div class="client-card reveal"><img src="img/slide7_img.png" alt="Uni-President" loading="lazy"><div class="client-info"><h3>UNI-PRESIDENT ENTERPRISES CORP.</h3><ul><li>Meter Separation for 5 Units</li></ul></div></div>
+            <div class="client-card reveal"><img src="img/slide13_img.png" alt="Cross Property" loading="lazy"><div class="client-info"><h3>CROSS PROPERTY MANAGEMENT</h3><ul><li>Dismantling &amp; Decommissioning Works</li></ul></div></div>
+            <div class="client-card reveal"><img src="img/slide14_img.png" alt="Fanatics" loading="lazy"><div class="client-info"><h3>FANATICS</h3><ul><li>Electrical Meter Separation</li></ul></div></div>
+            <div class="client-card reveal"><img src="img/slide15_img.png" alt="Morton's Steakhouse" loading="lazy"><div class="client-info"><h3>MORTON'S STEAKHOUSE</h3><ul><li>Electrical Meter Separation</li></ul></div></div>
+            <div class="client-card reveal"><img src="img/slide1_img.png" alt="Partners Group" loading="lazy"><div class="client-info"><h3>PARTNERS GROUP</h3><ul><li>Network Switches Relocation</li><li>Patching &amp; Data Works</li></ul></div></div>
+            <div class="client-card reveal"><img src="img/slide2_img.png" alt="UP Shopping Center" loading="lazy"><div class="client-info"><h3>UP SHOPPING CENTER</h3><ul><li>Supply &amp; Installation of Smart Meters</li></ul></div></div>
+            <div class="client-card reveal"><img src="img/slide3_img.png" alt="Hard Rock Cafe" loading="lazy"><div class="client-info"><h3>HARD ROCK CAFE</h3><ul><li>CCTV Tracing, Troubleshooting &amp; Commissioning</li></ul></div></div>
+            <div class="client-card reveal"><img src="img/slide4_img.png" alt="Amazon" loading="lazy"><div class="client-info"><h3>AMAZON</h3><ul><li>Annual Preventive Maintenance (9F–12F)</li></ul></div></div>
+            <div class="client-card reveal"><img src="img/slide5_img.png" alt="Sucree Coco" loading="lazy"><div class="client-info"><h3>SUCREE COCO AND LOVE</h3><ul><li>Meter Separation for 5 Units</li></ul></div></div>
+            <div class="client-card reveal"><img src="img/slide6_img.png" alt="Greenhills Tower" loading="lazy"><div class="client-info"><h3>GREENHILLS TOWER</h3><ul><li>Structured Cabling System</li></ul></div></div>
+            <div class="client-card reveal"><img src="img/slide12_img.png" alt="Amicassa Pampanga" loading="lazy"><div class="client-info"><h3>AMICASSA [PAMPANGA]</h3><ul><li>Dismantling &amp; Decommissioning Works</li></ul></div></div>
+            <div class="client-card reveal"><img src="img/slide8_img.png" alt="Propel Manila" loading="lazy"><div class="client-info"><h3>PROPEL MANILA</h3><ul><li>Meter Separation for 5 Units</li></ul></div></div>
+        </div>
+    </section>
+
+    <!-- ===== COMPANY ===== -->
+    <section id="company" class="g-section company-section">
+        <div class="section-header">
+            <span class="section-label">Who We Are</span>
+            <h2 class="heading">About Alpharex</h2>
+            <p class="section-sub">Building with integrity. Delivering with excellence.</p>
+        </div>
+
+        <div class="misvis-grid">
+            <div class="misvis-card reveal">
+                <div class="misvis-icon"><i class="fa-solid fa-bullseye"></i></div>
+                <h3>Our Mission</h3>
+                <p>To deliver exceptional construction services with unwavering integrity, turning our clients' visions into reality through innovative, sustainable, and quality-driven practices.</p>
+            </div>
+            <div class="misvis-card reveal">
+                <div class="misvis-icon"><i class="fa-solid fa-eye"></i></div>
+                <h3>Our Vision</h3>
+                <p>To become a leading construction company recognized for transforming and innovating the landscape of communities through our commitment to excellence, integrity, and responsible building practices.</p>
+            </div>
+        </div>
+
+        <div class="values-grid">
+            <div class="value-card reveal"><i class="fa-solid fa-handshake-angle"></i><h4>RELIABILITY</h4><p>Consistent and dependable on all projects, delivering on time and within budget.</p></div>
+            <div class="value-card reveal"><i class="fa-solid fa-lightbulb"></i><h4>INNOVATION</h4><p>Embracing creativity and forward-thinking to drive continuous improvement.</p></div>
+            <div class="value-card reveal"><i class="fa-solid fa-star"></i><h4>QUALITY</h4><p>Striving for excellence — every project meets or exceeds client expectations.</p></div>
+            <div class="value-card reveal"><i class="fa-solid fa-scale-balanced"></i><h4>INTEGRITY</h4><p>Upholding honesty, transparency, and ethical conduct across all business aspects.</p></div>
+            <div class="value-card reveal"><i class="fa-solid fa-file-invoice"></i><h4>ACCOUNTABILITY</h4><p>Taking responsibility for all outcomes and learning from every experience.</p></div>
+            <div class="value-card reveal"><i class="fa-solid fa-hand-holding-heart"></i><h4>RESPECT</h4><p>Treating all individuals with dignity and valuing diversity and inclusivity.</p></div>
+        </div>
+
+        <div class="company-banner reveal">
+            <img src="img/company-devices.png" alt="Alpharex Devices" loading="lazy">
+        </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="g-section contact-section">
+        <div class="section-header">
+            <span class="section-label">Reach Out</span>
+            <h2 class="heading heading-light">Contact Us</h2>
+            <p class="section-sub section-sub-light">We'd love to hear from you. Let's build something great together.</p>
+        </div>
+        <div class="contact-layout">
+            <div class="contact-details reveal">
+                <div class="contact-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <div><h4>Mobile</h4><p>+63 965 523 0279</p></div>
+                </div>
+                <div class="contact-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div><h4>Location</h4><p>Blk 3, Lot 19, Phase 1, Amaia Scapes Rizal,<br>Barangay Tatala, Binangonan, Rizal</p></div>
+                </div>
+                <div class="contact-item">
+                    <i class="fa-regular fa-envelope"></i>
+                    <div><h4>Email</h4><p>services@alpharex.net</p></div>
+                </div>
+                <div class="contact-item">
+                    <i class="fa-solid fa-globe"></i>
+                    <div><h4>Website</h4><p>www.alpharex.net</p></div>
+                </div>
+            </div>
+
+            <form id="guestContactForm" class="contact-form reveal">
+                <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+                <input type="hidden" name="from_name" value="Alpharex Website (Guest)">
+                <input type="hidden" name="subject" value="New Contact Form Submission">
+                <h3>Send Us A Message</h3>
+                <div class="form-row">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                </div>
+                <textarea name="message" rows="6" placeholder="Describe your project or inquiry..." required></textarea>
+                <button type="submit" class="submit-btn" id="guestSubmitBtn">
+                    <i class="fa-solid fa-paper-plane"></i> Send Message
+                </button>
+                <p class="form-status" id="formStatus"></p>
+            </form>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="guest-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <img src="img/brandlogo.png" alt="Alpharex" height="40">
+                <p>Alpharex OPC</p>
+            </div>
+            <p class="footer-copy">Copyright &copy; 2025 Alpharex, OPC. All rights reserved.</p>
+            <a href="/" class="footer-back">← Back to Main Site</a>
+        </div>
+    </footer>
+
     <script>
-        // ---- SIDEBAR TOGGLE (mobile) ----
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('open');
-            document.getElementById('sidebar-overlay').classList.toggle('show');
+        // ---- NAVBAR SCROLL EFFECT ----
+        const nav = document.getElementById('top-nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 60);
+        }, { passive: true });
+
+        // ---- MOBILE NAV TOGGLE ----
+        function toggleMobileNav() {
+            const links = document.getElementById('nav-links');
+            const icon = document.getElementById('nav-icon');
+            links.classList.toggle('open');
+            icon.className = links.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
         }
 
-        // ---- SMOOTH SCROLL ----
-        function scrollToSection(id) {
+        // ---- SMOOTH SCROLL + CLOSE MOBILE NAV ----
+        function navScroll(id) {
             const el = document.getElementById(id);
-            if (el) el.scrollIntoView({ behavior: 'smooth' });
-            document.getElementById('sidebar').classList.remove('open');
-            document.getElementById('sidebar-overlay').classList.remove('show');
+            if (!el) return;
+            const offset = document.getElementById('top-nav').offsetHeight;
+            const top = el.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({ top, behavior: 'smooth' });
+            document.getElementById('nav-links').classList.remove('open');
+            document.getElementById('nav-icon').className = 'fas fa-bars';
         }
 
-        // ---- ACTIVE NAV ON SCROLL ----
-        const sections = document.querySelectorAll('.g-section');
-        const navItems = document.querySelectorAll('.s-nav-item');
+        // ---- ACTIVE NAV LINK ON SCROLL ----
+        const sections = ['hero', 'services', 'clients', 'company', 'contact'];
+        const navLinks = document.querySelectorAll('.nav-link');
 
-        const sectionObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const id = entry.target.id;
-                    navItems.forEach(item => {
-                        item.classList.toggle('active', item.dataset.section === id);
-                    });
-                }
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY + 120;
+            let current = 'hero';
+            sections.forEach(id => {
+                const el = document.getElementById(id);
+                if (el && el.offsetTop <= scrollY) current = id;
             });
-        }, { threshold: 0.35 });
-
-        sections.forEach(s => sectionObserver.observe(s));
+            navLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+            });
+        }, { passive: true });
 
         // ---- REVEAL ON SCROLL ----
-        const revealEls = document.querySelectorAll('.reveal');
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach((entry, i) => {
                 if (entry.isIntersecting) {
-                    setTimeout(() => entry.target.classList.add('visible'), i * 40);
+                    setTimeout(() => entry.target.classList.add('visible'), i * 50);
                     revealObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.08 });
 
-        revealEls.forEach(el => revealObserver.observe(el));
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
         // ---- CONTACT FORM (Web3Forms) ----
         document.getElementById('guestContactForm').addEventListener('submit', async function (e) {
             e.preventDefault();
             const btn = document.getElementById('guestSubmitBtn');
-            const btnText = btn.querySelector('.buttontext');
             const status = document.getElementById('formStatus');
+            const origText = btn.innerHTML;
 
-            btnText.textContent = 'Sending...';
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
             btn.disabled = true;
             status.textContent = '';
             status.className = 'form-status';
@@ -411,7 +330,7 @@
                 status.textContent = 'An error occurred. Please try again.';
                 status.className = 'form-status error';
             } finally {
-                btnText.textContent = 'Send Message';
+                btn.innerHTML = origText;
                 btn.disabled = false;
             }
         });
