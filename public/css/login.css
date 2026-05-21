@@ -76,17 +76,21 @@ body::after {
 }
 
 .login-panel {
-    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 48px 40px;
 }
 
-/* ── Left: Login card ── */
+/* ── Left: Brand panel (narrower) ── */
+.brand-panel {
+    flex: 0 0 38%;
+    max-width: 38%;
+}
+
+/* ── Right: Card panel (majority of space) ── */
 .card-panel {
-    max-width: 560px;
-    flex: 0 0 560px;
+    flex: 1;
 }
 
 @media (max-width: 1024px) {
@@ -96,7 +100,7 @@ body::after {
 
 .login-card {
     width: 100%;
-    max-width: 480px;
+    max-width: 520px;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 218, 179, 0.12);
     border-radius: 24px;
