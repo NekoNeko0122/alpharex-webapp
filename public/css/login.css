@@ -93,56 +93,66 @@ body::after {
     flex: 1;
 }
 
-/* ── Tablet: hide brand panel ── */
+/* ── Tablet / Mobile: hide brand panel, card takes full width ── */
 @media (max-width: 1024px) {
-    .card-panel  { flex: 1; max-width: 100%; }
-    .brand-panel { display: none; }
+    .brand-panel { display: none !important; }
+    .card-panel  { flex: 1 !important; width: 100% !important; max-width: 100% !important; }
+    .login-page  { min-height: 100svh; align-items: center; justify-content: center; }
 }
 
-/* ── Mobile: full-screen card, comfortable spacing ── */
-@media (max-width: 600px) {
+/* ── Mobile: full-screen centered card ── */
+@media (max-width: 768px) {
 
     .login-page {
         align-items: flex-start;
+        justify-content: flex-start;
         min-height: 100svh;
     }
 
-    /* Back nav sits flush to the top edge */
     .back-nav {
-        top: 14px;
-        left: 14px;
-        font-size: 0.76rem;
-        padding: 6px 10px;
+        top: 16px;
+        left: 16px;
+        font-size: 0.78rem;
+        padding: 7px 12px;
     }
 
-    /* Panel becomes a full-page scroll container */
-    .login-panel {
-        padding: 74px 20px 44px;
-        align-items: flex-start;
+    .card-panel {
+        width: 100% !important;
         min-height: 100svh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 80px 20px 40px;
     }
 
-    /* Card fills the panel with comfortable insets */
     .login-card {
-        max-width: 100%;
-        padding: 32px 22px;
-        border-radius: 18px;
+        width: 100%;
+        max-width: 420px;
+        padding: 36px 24px;
+        border-radius: 20px;
     }
 
-    /* Tighten brand logo area */
-    .login-brand   { margin-bottom: 22px; }
-    .login-logo    { width: 50px; height: 50px; }
-    .login-textlogo { width: 116px; }
+    .login-brand        { margin-bottom: 24px; }
+    .login-logo         { width: 54px; height: 54px; }
+    .login-textlogo     { width: 120px; }
+    .login-heading h2   { font-size: 1.25rem; }
+    .type-selector      { margin-bottom: 24px; }
 
-    /* Slightly smaller heading */
-    .login-heading h2 { font-size: 1.2rem; }
+    .input-wrap input   { font-size: 0.92rem; padding: 13px 13px 13px 42px; }
 
-    /* Inputs comfortable on small touch screens */
-    .input-wrap input  { font-size: 0.9rem; padding: 13px 13px 13px 42px; }
-    .login-btn         { padding: 14px; font-size: 0.95rem; }
+    .form-extras {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        gap: 8px;
+    }
 
-    .type-selector     { margin-bottom: 22px; }
-    .form-extras       { margin-bottom: 18px; }
+    .remember-label { font-size: 0.8rem; gap: 7px; }
+    .forgot-link    { font-size: 0.8rem; white-space: nowrap; }
+
+    .login-btn      { padding: 14px; font-size: 0.95rem; }
 }
 
 .login-card {
