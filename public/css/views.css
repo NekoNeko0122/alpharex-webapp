@@ -7,53 +7,86 @@
 
 html { scroll-behavior: smooth; }
 
-/* ── Custom cursor (applied only when .has-cursor on body) ── */
+/* ── Custom cursor — blueprint construction crosshair ── */
 
 .cursor-dot, .cursor-ring {
     position: fixed;
-    border-radius: 50%;
     pointer-events: none;
     z-index: 10000;
     opacity: 0;
-    transition-property: width, height, background-color, border-color, opacity;
-    transition-duration: 0.25s;
-    transition-timing-function: ease;
-    transform: translate(-50%, -50%);
     will-change: left, top;
 }
 
+/* Diamond rivet dot */
 .cursor-dot {
     width: 10px;
     height: 10px;
     background: #b33232;
+    border-radius: 1px;
+    transform: translate(-50%, -50%) rotate(45deg);
+    transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease,
+                transform 0.2s ease, border-radius 0.2s ease, opacity 0.25s ease;
 }
 
+/* Blueprint crosshair square ring */
 .cursor-ring {
-    width: 36px;
-    height: 36px;
-    border: 1.5px solid rgba(179, 50, 50, 0.55);
+    width: 32px;
+    height: 32px;
+    border: 1.5px solid rgba(179, 50, 50, 0.7);
+    border-radius: 3px;
     background: transparent;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease, opacity 0.25s ease;
+}
+
+/* Vertical crosshair ticks (top + bottom shadow) */
+.cursor-ring::before {
+    content: '';
+    position: absolute;
+    background: rgba(179, 50, 50, 0.65);
+    width: 1px;
+    height: 7px;
+    left: calc(50% - 0.5px);
+    top: -9px;
+    box-shadow: 0 50px 0 rgba(179, 50, 50, 0.65);
+}
+
+/* Horizontal crosshair ticks (left + right shadow) */
+.cursor-ring::after {
+    content: '';
+    position: absolute;
+    background: rgba(179, 50, 50, 0.65);
+    height: 1px;
+    width: 7px;
+    top: calc(50% - 0.5px);
+    left: -9px;
+    box-shadow: 50px 0 0 rgba(179, 50, 50, 0.65);
 }
 
 .has-cursor { cursor: none; }
 .has-cursor .cursor-dot,
 .has-cursor .cursor-ring { opacity: 1; }
 
+/* Hover: dot becomes flat square, ring expands */
 .cursor-dot.hovered {
-    width: 18px;
-    height: 18px;
+    width: 14px;
+    height: 14px;
     background: #FFDAB3;
+    border-radius: 3px;
+    transform: translate(-50%, -50%) rotate(0deg);
 }
 
 .cursor-ring.hovered {
-    width: 54px;
-    height: 54px;
-    border-color: rgba(255, 218, 179, 0.45);
+    width: 50px;
+    height: 50px;
+    border-color: rgba(255, 218, 179, 0.6);
 }
 
+/* Click: shrink the diamond */
 .cursor-dot.clicking {
-    width: 7px;
-    height: 7px;
+    width: 6px;
+    height: 6px;
+    transform: translate(-50%, -50%) rotate(45deg);
 }
 
 body {
@@ -282,16 +315,23 @@ body {
 
 .hero-line-accent { color: #FFDAB3; }
 
-/* Individual animated letters */
+/* Individual animated letters — reveal then continuous wave */
 .letter {
     display: inline-block;
     opacity: 0;
-    transform: translateY(60px) rotate(4deg);
-    animation: letterUp 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }
 
-@keyframes letterUp {
-    to { opacity: 1; transform: translateY(0) rotate(0deg); }
+@keyframes letterIn {
+    from { opacity: 0; transform: translateY(60px) rotate(4deg); }
+    to   { opacity: 1; transform: translateY(0) rotate(0deg); }
+}
+
+@keyframes letterWave {
+    0%   { opacity: 1; transform: translateY(0)     rotate(0deg);  }
+    22%  { opacity: 1; transform: translateY(-14px)  rotate(-2deg); }
+    45%  { opacity: 1; transform: translateY(0)     rotate(0deg);  }
+    68%  { opacity: 1; transform: translateY(-7px)   rotate(1deg);  }
+    100% { opacity: 1; transform: translateY(0)     rotate(0deg);  }
 }
 
 .hero-sub {

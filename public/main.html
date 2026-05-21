@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -299,10 +299,17 @@
             let t = baseDelay;
             [...text].forEach(ch => {
                 const s = document.createElement('span');
-                s.className = 'letter';
-                s.textContent = ch === ' ' ? ' ' : ch;
-                s.style.animationDelay = t + 's';
-                if (ch !== ' ') t += 0.045;
+                if (ch === ' ') {
+                    s.textContent = ' ';
+                    s.style.display = 'inline-block';
+                } else {
+                    s.className = 'letter';
+                    s.textContent = ch;
+                    s.style.animation =
+                        `letterIn 0.6s cubic-bezier(0.23,1,0.32,1) ${t}s both,` +
+                        `letterWave 2.8s ease-in-out ${t + 0.75}s infinite`;
+                    t += 0.045;
+                }
                 el.appendChild(s);
             });
         }
