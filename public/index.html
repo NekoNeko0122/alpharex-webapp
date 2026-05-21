@@ -14,6 +14,28 @@
 </head>
 <body>
 
+    <!-- ── Mobile navigation (≤ 900px) ── -->
+    <nav class="mob-top-nav" id="mob-top-nav">
+        <div class="mob-nav-brand">
+            <img src="img/brandlogo.png" alt="" class="mob-nav-logo">
+            <img src="img/textlogo.png" alt="" class="mob-nav-textlogo">
+        </div>
+        <button class="mob-menu-toggle" id="mob-menu-toggle" onclick="toggleMobMenu()">
+            <i class="fas fa-bars" id="mob-menu-icon"></i>
+        </button>
+    </nav>
+    <div class="mob-menu" id="mob-menu">
+        <ul class="mob-nav-links">
+            <li onclick="Navigate(0)"><i class="fa-solid fa-house"></i> Home</li>
+            <li onclick="Navigate(1)"><i class="fa-solid fa-person-digging"></i> Services</li>
+            <li onclick="Navigate(2)"><i class="fa-solid fa-handshake"></i> Clients</li>
+            <li onclick="Navigate(3)"><i class="fa-solid fa-hard-drive"></i> Company</li>
+            <li onclick="Navigate(4)"><i class="fa-solid fa-phone"></i> Contact Us</li>
+            <li onclick="window.location.href='/login.html?type=client'"><i class="fa-solid fa-user-tie"></i> Login as Client</li>
+            <li onclick="window.location.href='/login.html?type=admin'"><i class="fa-solid fa-user-shield"></i> Login as Admin</li>
+        </ul>
+    </div>
+
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="arrow-right" viewBox="0 0 48 24">
           <path d="M8 5l7 7-7 7" stroke=#b33232 stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>

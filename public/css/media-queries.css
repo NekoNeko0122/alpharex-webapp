@@ -1,95 +1,472 @@
-@media (max-width: 1366px) {
-    .hamburger {
-        display: block;
+/* ── Mobile-only elements hidden by default ── */
+.mob-top-nav,
+.mob-menu { display: none; }
+
+/* ============================================================
+   MOBILE  ≤ 900px
+   No cube, vertical scroll, fixed top nav, scroll animations
+   ============================================================ */
+@media (max-width: 900px) {
+
+    /* Body scrolls vertically */
+    body {
+        height: auto !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
     }
 
-    aside {
-        width: 20rem;
-    }
-    .content {
-        margin-left: -20rem;
-    }
+    /* Hide desktop-only elements */
+    .hamburger  { display: none !important; }
+    aside       { display: none !important; }
+    .slide-help { display: none !important; }
 
-    .container.open .content {
-        margin-left: 0; 
-    }
-}
-
-@media (min-width: 1366px) {
-    aside {
-        transform: translateX(0);
-        opacity: 1;
-    }
-
-    .hamburger {
-        display: none; 
-    }
-
-    .content {
-        margin-left: 0;
-    }
-}
-
-/* @media (max-width: 1366px) {
-    .SideImg {
-        margin-right: -510px;
-    }
-}
-
-@media (min-width: 1366px) {
-    .SideImg {
-        margin-right: 10px;
-    }
-} */
-
-
-@media (max-width: 1300px) {
-    .buttonGroup {
-        
+    /* Main container becomes vertical column */
+    main.container {
         flex-direction: column;
+        height: auto;
+        width: 100%;
+    }
+
+    /* ── Kill the cube: Swiper becomes a plain flex column ── */
+    .mySwiper {
+        width: 100%   !important;
+        height: auto  !important;
+        overflow: visible !important;
+        perspective: none !important;
+        -webkit-perspective: none !important;
+        background-color: transparent !important;
+    }
+
+    .swiper-wrapper {
+        display: flex       !important;
+        flex-direction: column !important;
+        transform: none     !important;
+        transition: none    !important;
+        width: 100%         !important;
+        height: auto        !important;
+        cursor: default     !important;
+    }
+
+    /* Override every Swiper slide state class */
+    .swiper-slide,
+    .swiper-slide-active,
+    .swiper-slide-prev,
+    .swiper-slide-next {
+        width: 100%    !important;
+        height: auto   !important;
+        min-height: 100svh;
+        opacity: 1     !important;
+        visibility: visible !important;
+        transform: none !important;
+        position: relative !important;
+        left: auto     !important;
+        top: auto      !important;
+        pointer-events: auto !important;
+    }
+
+    /* ─────────────────────────────────────────
+       MOBILE TOP NAVBAR
+    ───────────────────────────────────────── */
+    .mob-top-nav {
+        display: flex !important;
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 9999;
+        height: 62px;
+        background: rgba(15, 7, 7, 0.97);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
         align-items: center;
-        gap: 10px;
-        
+        justify-content: space-between;
+        padding: 0 20px;
+        border-bottom: 1px solid rgba(255, 218, 179, 0.1);
+        box-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .mob-nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .mob-nav-logo {
+        height: 38px;
+        width: 38px;
+        object-fit: contain;
+    }
+
+    .mob-nav-textlogo {
+        height: 20px;
+        object-fit: contain;
+        filter: brightness(0) invert(1);
+        opacity: 0.9;
+    }
+
+    .mob-menu-toggle {
+        background: none;
+        border: none;
+        color: rgba(255, 218, 179, 0.8);
+        font-size: 1.3rem;
+        cursor: pointer;
+        padding: 8px 10px;
+        border-radius: 8px;
+        transition: background 0.2s ease, color 0.2s ease;
+        line-height: 1;
+    }
+
+    .mob-menu-toggle.open {
+        background: rgba(255, 218, 179, 0.1);
+        color: #FFDAB3;
+    }
+
+    /* ─────────────────────────────────────────
+       MOBILE DROPDOWN MENU
+    ───────────────────────────────────────── */
+    .mob-menu {
+        display: block !important;
+        position: fixed;
+        top: 62px; left: 0; right: 0;
+        z-index: 9998;
+        background: rgba(10, 5, 5, 0.99);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.42s cubic-bezier(0.23, 1, 0.32, 1);
+        border-bottom: 1px solid rgba(255, 218, 179, 0.06);
+    }
+
+    .mob-menu.open { max-height: 560px; }
+
+    .mob-nav-links { list-style: none; padding: 8px 0 18px; }
+
+    .mob-nav-links li {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 15px 28px;
+        color: rgba(255, 218, 179, 0.7);
+        font-family: "Roboto Slab", serif;
+        font-size: 0.97rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: color 0.2s ease, background 0.2s ease;
+        border-bottom: 1px solid rgba(255, 218, 179, 0.04);
+        letter-spacing: 0.4px;
+    }
+
+    .mob-nav-links li:last-child { border-bottom: none; }
+
+    .mob-nav-links li i {
+        font-size: 0.88rem;
+        color: #b33232;
+        min-width: 18px;
+        text-align: center;
+    }
+
+    .mob-nav-links li:hover {
+        color: #FFDAB3;
+        background: rgba(255, 218, 179, 0.05);
+    }
+
+    /* Login items get a separator */
+    .mob-nav-links li:nth-last-child(-n+2) {
+        border-top: 1px solid rgba(255, 218, 179, 0.1);
+        color: rgba(255, 218, 179, 0.55);
+    }
+
+    /* ─────────────────────────────────────────
+       HOME SLIDE
+    ───────────────────────────────────────── */
+    .home-slide {
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        padding: 82px 28px 60px !important;
+        text-align: center;
+    }
+
+    .HomeContent {
+        margin: 0 !important;
+        padding: 0 !important;
+        margin-right: 0 !important;
+        width: 100% !important;
+        animation: mobFadeUp 0.9s cubic-bezier(0.23, 1, 0.32, 1) both 0.2s;
+    }
+
+    .HomeContent h1 {
+        font-size: clamp(1.9rem, 7vw, 2.6rem) !important;
+        margin-bottom: 14px !important;
+    }
+
+    .HomeContent h2 {
+        font-size: 0.7rem !important;
+        letter-spacing: 1.5px;
+        margin-bottom: 18px !important;
+        line-height: 1.9;
+    }
+
+    .heroline {
+        font-size: 0.9rem !important;
+        padding-right: 0 !important;
+        text-align: center !important;
+        line-height: 1.75;
+        max-width: 440px;
+        margin: 0 auto;
+    }
+
+    .buttonGroup {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 12px !important;
+        margin-top: 28px !important;
+        height: auto !important;
+        padding: 0 !important;
     }
 
     .animated-btn {
-        min-height: 50px;
-        min-width: 200px;
-        gap: 0px;
+        max-width: 270px !important;
+        width: 100% !important;
+        min-width: unset !important;
+    }
+
+    .animated-btn .buttontext { font-size: 1rem !important; }
+
+    .SideImg { display: none !important; }
+
+    /* ─────────────────────────────────────────
+       SERVICES SLIDE
+    ───────────────────────────────────────── */
+    .services {
+        padding: 72px 22px 60px !important;
+        height: auto !important;
+    }
+
+    .gridsix {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 14px !important;
+        height: auto !important;
+        margin-top: 20px !important;
+    }
+
+    .services .service    { padding: 22px 14px !important; }
+    .services .service i  { font-size: 2rem !important; }
+    .services .service h2 { font-size: 0.75rem !important; margin-bottom: 10px !important; }
+    .services .service p  { font-size: 0.76rem !important; }
+
+    /* ─────────────────────────────────────────
+       CLIENTS SLIDE
+    ───────────────────────────────────────── */
+    .client {
+        padding: 72px 18px 60px !important;
+        height: auto !important;
+        min-height: auto !important;
+    }
+
+    .client h2.sub-heading {
+        font-size: 0.88rem !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 10px;
+    }
+
+    .client-btn { display: none !important; }
+
+    .slider-container {
+        min-height: auto !important;
+        height: auto !important;
+        overflow: visible !important;
+        display: block !important;
+        flex: none !important;
+    }
+
+    /* Client cards: kill JS-controlled carousel, show as grid */
+    .cardslider {
+        position: static !important;
+        height: auto !important;
+        width: 100% !important;
+        margin-top: 22px !important;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 12px !important;
+    }
+
+    /* Override every JS inline style with !important */
+    .item {
+        position: static !important;
+        width: 100%  !important;
+        height: auto !important;
+        left: auto   !important;
+        top: auto    !important;
+        transform: none !important;
+        opacity: 1   !important;
+        filter: none !important;
+        z-index: auto !important;
+        font-size: 0.8rem !important;
+        padding: 12px !important;
+        border-radius: 10px;
+    }
+
+    .item .cardbg {
+        width: 100%;
+        height: 80px !important;
+        object-fit: cover;
+        border-radius: 6px;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .item .cardhead { font-size: 0.72rem !important; margin-bottom: 6px !important; }
+    .item ul        { font-size: 0.68rem !important; }
+
+    #next, #prev { display: none !important; }
+
+    /* ─────────────────────────────────────────
+       COMPANY SLIDE
+    ───────────────────────────────────────── */
+    .company-misvis {
+        flex-direction: column !important;
+        margin: 72px 18px 0 !important;
+        gap: 18px !important;
+    }
+
+    .company-vission,
+    .company-mission { padding: 26px 20px !important; }
+
+    .company-misvis h2 { font-size: 0.9rem !important; }
+
+    .coreval { margin: 0 !important; }
+
+    .values-container {
+        width: 100% !important;
+        height: 160px !important;
+        margin-top: 18px !important;
+    }
+
+    .core-values  { height: 160px !important; }
+    .core-values i  { font-size: 1.5rem !important; }
+    .core-values h1 { font-size: 0.78rem !important; }
+    .core-values p  { font-size: 0.68rem !important; margin: 4px 8px 0 !important; }
+
+    .company-img { margin-top: 20px !important; margin-bottom: 40px !important; }
+    .company-img img { height: auto !important; width: 90% !important; }
+
+    /* ─────────────────────────────────────────
+       CONTACT SLIDE
+    ───────────────────────────────────────── */
+    .contact {
+        padding: 72px 18px 60px !important;
+        height: auto !important;
+        min-height: auto !important;
+    }
+
+    .contact-info-form {
+        flex-direction: column !important;
+        margin-left: 0 !important;
+        height: auto !important;
+        gap: 28px !important;
+        align-items: stretch !important;
+    }
+
+    .contact-info {
+        width: 100% !important;
+        height: auto !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        justify-content: space-around !important;
+        gap: 16px !important;
+    }
+
+    .contactinfo        { min-width: 120px; flex: 1; }
+    .contactinfo i      { font-size: 1.5rem !important; margin: 10px auto !important; }
+    .contactinfo h3     { font-size: 0.82rem !important; }
+    .contactinfo p      { font-size: 0.76rem !important; }
+
+    form {
+        grid-template-columns: 1fr !important;
+        margin-left: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+
+    form h2         { font-size: 1.1rem !important; padding: 10px !important; grid-column: 1 !important; }
+    form input      { margin: 8px 0 !important; font-size: 0.9rem !important; padding: 14px !important; grid-column: 1 !important; }
+
+    .contact form textarea {
+        margin: 8px 0 !important;
+        font-size: 0.9rem !important;
+        padding: 14px !important;
+        height: 120px !important;
+        grid-column: 1 !important;
+    }
+
+    .send-btn {
+        grid-column: 1 !important;
+        width: 100% !important;
+        max-width: 260px !important;
+        margin: 12px auto !important;
+        height: 50px !important;
+    }
+
+    /* ─────────────────────────────────────────
+       SCROLL REVEAL (added via JS)
+    ───────────────────────────────────────── */
+    .mob-reveal {
+        opacity: 0;
+        transform: translateY(26px);
+        transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .mob-reveal.mob-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    @keyframes mobFadeUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to   { opacity: 1; transform: translateY(0); }
     }
 }
 
+/* ── Small phones ── */
+@media (max-width: 480px) {
+    .gridsix    { grid-template-columns: 1fr !important; }
+    .cardslider { grid-template-columns: 1fr !important; }
+    .HomeContent h1 { font-size: 1.9rem !important; }
+}
 
+/* ============================================================
+   DESKTOP > 900px — original behavior preserved
+   ============================================================ */
+
+@media (min-width: 901px) and (max-width: 1366px) {
+    .hamburger { display: block; }
+    aside      { width: 20rem; }
+    .content   { margin-left: -20rem; }
+    .container.open .content { margin-left: 0; }
+}
+
+@media (min-width: 1366px) {
+    aside      { transform: translateX(0); opacity: 1; }
+    .hamburger { display: none; }
+    .content   { margin-left: 0; }
+}
+
+@media (max-width: 1300px) {
+    .buttonGroup  { flex-direction: column; align-items: center; gap: 10px; }
+    .animated-btn { min-height: 50px; min-width: 200px; }
+}
 
 @media (max-width: 1538px) {
-    .buttonGroup button .buttontext {
-        
-        font-weight: 700;
-        font-size: 1.1rem;
-    }
+    .buttonGroup button .buttontext { font-weight: 700; font-size: 1.1rem; }
 }
 
-
-@media only screen 
-  and (min-width: 1024px) 
-  and (max-height: 1366px) 
-  and (orientation: landscape) 
+@media only screen
+  and (min-width: 1024px)
+  and (max-height: 1366px)
+  and (orientation: landscape)
   and (-webkit-min-device-pixel-ratio: 1.5) {
-
-    .services.swiper-slide-next {
-        visibility: hidden !important;
-    }
-
-    .SideImg {
-        margin-right: -510px;
-    }
-
-    .item {
-        position: absolute;
-        width: 20vw;
-        height: 60vh;
-    }
-
+    .services.swiper-slide-next { visibility: hidden !important; }
+    .SideImg { margin-right: -510px; }
+    .item { position: absolute; width: 20vw; height: 60vh; }
 }
-
-
