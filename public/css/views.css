@@ -7,6 +7,55 @@
 
 html { scroll-behavior: smooth; }
 
+/* ── Custom cursor (applied only when .has-cursor on body) ── */
+
+.cursor-dot, .cursor-ring {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    opacity: 0;
+    transition-property: width, height, background-color, border-color, opacity;
+    transition-duration: 0.25s;
+    transition-timing-function: ease;
+    transform: translate(-50%, -50%);
+    will-change: left, top;
+}
+
+.cursor-dot {
+    width: 10px;
+    height: 10px;
+    background: #b33232;
+}
+
+.cursor-ring {
+    width: 36px;
+    height: 36px;
+    border: 1.5px solid rgba(179, 50, 50, 0.55);
+    background: transparent;
+}
+
+.has-cursor { cursor: none; }
+.has-cursor .cursor-dot,
+.has-cursor .cursor-ring { opacity: 1; }
+
+.cursor-dot.hovered {
+    width: 18px;
+    height: 18px;
+    background: #FFDAB3;
+}
+
+.cursor-ring.hovered {
+    width: 54px;
+    height: 54px;
+    border-color: rgba(255, 218, 179, 0.45);
+}
+
+.cursor-dot.clicking {
+    width: 7px;
+    height: 7px;
+}
+
 body {
     background-color: #e2d3d3;
     font-family: "Chakra Petch", serif;
@@ -102,8 +151,31 @@ body {
 .nav-right {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     flex-shrink: 0;
+}
+
+/* Login button in navbar */
+.nav-login-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: 1.5px solid rgba(255, 218, 179, 0.3);
+    border-radius: 30px;
+    color: rgba(255, 218, 179, 0.75);
+    text-decoration: none;
+    font-family: "Roboto Slab", serif;
+    font-weight: 700;
+    font-size: 0.83rem;
+    white-space: nowrap;
+    transition: all 0.28s ease;
+}
+
+.nav-login-btn:hover {
+    background: rgba(255, 218, 179, 0.1);
+    border-color: #FFDAB3;
+    color: #FFDAB3;
 }
 
 .nav-cta {
@@ -189,7 +261,8 @@ body {
     letter-spacing: 6px;
     text-transform: uppercase;
     margin-bottom: 18px;
-    opacity: 0.9;
+    opacity: 0;
+    animation: fadeSlideUp 0.7s ease forwards 0.2s;
 }
 
 .hero-content h1 {
@@ -201,9 +274,24 @@ body {
     text-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
 }
 
-.hero-content h1 span {
-    color: #FFDAB3;
+/* Each line is the split target */
+.hero-line {
     display: block;
+    overflow: hidden;
+}
+
+.hero-line-accent { color: #FFDAB3; }
+
+/* Individual animated letters */
+.letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(60px) rotate(4deg);
+    animation: letterUp 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes letterUp {
+    to { opacity: 1; transform: translateY(0) rotate(0deg); }
 }
 
 .hero-sub {
@@ -214,13 +302,24 @@ body {
     max-width: 620px;
     margin-left: auto;
     margin-right: auto;
+    opacity: 0;
+    animation: fadeSlideUp 0.8s ease forwards 2.1s;
 }
+
+.hero-sub strong { color: #FFDAB3; font-weight: 700; }
 
 .hero-btns {
     display: flex;
     gap: 16px;
     justify-content: center;
     flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeSlideUp 0.8s ease forwards 2.45s;
+}
+
+@keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0);    }
 }
 
 /* Hero buttons */

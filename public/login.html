@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — Alpharex OPC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bruno+Ace+SC&family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+
+    <!-- ── Back nav ── -->
+    <a href="/" class="back-nav">
+        <i class="fa-solid fa-arrow-left"></i> Landing Page
+    </a>
+
+    <!-- ── Full-page layout ── -->
+    <div class="login-page">
+
+        <!-- Left: Card -->
+        <div class="login-panel card-panel">
+            <div class="login-card" id="loginCard">
+
+                <!-- Brand -->
+                <div class="login-brand">
+                    <img src="img/brandlogo.png" alt="Alpharex Logo" class="login-logo">
+                    <img src="img/textlogo.png" alt="Alpharex" class="login-textlogo">
+                </div>
+
+                <!-- Type toggle -->
+                <div class="type-selector">
+                    <button class="type-btn active" id="clientBtn" onclick="switchType('client')">
+                        <i class="fa-solid fa-user-tie"></i> Client
+                    </button>
+                    <button class="type-btn" id="adminBtn" onclick="switchType('admin')">
+                        <i class="fa-solid fa-user-shield"></i> Admin
+                    </button>
+                </div>
+
+                <!-- Heading -->
+                <div class="login-heading">
+                    <h2 id="loginTitle">Client Login</h2>
+                    <p>Welcome back. Please sign in to continue.</p>
+                </div>
+
+                <!-- Form -->
+                <form id="loginForm" class="login-form" novalidate>
+                    <div class="input-wrap">
+                        <i class="fa-solid fa-envelope input-icon"></i>
+                        <input type="email" id="emailInput" placeholder="Email Address" required autocomplete="email">
+                    </div>
+                    <div class="input-wrap">
+                        <i class="fa-solid fa-lock input-icon"></i>
+                        <input type="password" id="pwInput" placeholder="Password" required autocomplete="current-password">
+                        <button type="button" class="pw-eye" onclick="togglePw()" tabindex="-1">
+                            <i class="fa-solid fa-eye" id="pwEye"></i>
+                        </button>
+                    </div>
+                    <div class="form-extras">
+                        <label class="remember-label">
+                            <input type="checkbox" id="rememberMe">
+                            <span class="checkmark"></span>
+                            Remember me
+                        </label>
+                        <a href="#" class="forgot-link">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="login-btn" id="loginBtn">
+                        <span id="loginBtnText">Sign In</span>
+                        <i id="loginBtnIcon" class="fa-solid fa-arrow-right"></i>
+                    </button>
+                    <p class="login-status" id="loginStatus"></p>
+                </form>
+
+                <!-- Footer -->
+                <div class="card-footer-links">
+                    <span>Need access?</span>
+                    <a href="mailto:services@alpharex.net">Contact Us</a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Right: Branding panel -->
+        <div class="login-panel brand-panel">
+            <div class="brand-panel-inner">
+                <div class="brand-quote">
+                    <p class="brand-eyebrow">ALPHAREX OPC</p>
+                    <h1>YOUR<br>POWER,<br><span>OUR<br>PASSION</span></h1>
+                </div>
+                <p class="brand-sub">
+                    Delivering exceptional construction services
+                    with unwavering integrity and innovation
+                    on every project.
+                </p>
+                <ul class="brand-values">
+                    <li><i class="fa-solid fa-check-circle"></i> Reliability</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Innovation</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Quality</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Integrity</li>
+                </ul>
+                <a href="/main" class="brand-main-link">
+                    Visit Main Site <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Read URL type param
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlType = urlParams.get('type');
+        if (urlType === 'admin') switchType('admin');
+
+        // Switch between Client / Admin
+        function switchType(type) {
+            const title = document.getElementById('loginTitle');
+            const clientBtn = document.getElementById('clientBtn');
+            const adminBtn = document.getElementById('adminBtn');
+            const card = document.getElementById('loginCard');
+
+            if (type === 'admin') {
+                title.textContent = 'Admin Login';
+                adminBtn.classList.add('active');
+                clientBtn.classList.remove('active');
+                card.setAttribute('data-type', 'admin');
+            } else {
+                title.textContent = 'Client Login';
+                clientBtn.classList.add('active');
+                adminBtn.classList.remove('active');
+                card.setAttribute('data-type', 'client');
+            }
+        }
+
+        // Show/hide password
+        function togglePw() {
+            const input = document.getElementById('pwInput');
+            const icon = document.getElementById('pwEye');
+            const isHidden = input.type === 'password';
+            input.type = isHidden ? 'text' : 'password';
+            icon.className = isHidden ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye';
+        }
+
+        // Form submit
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('loginBtn');
+            const btnText = document.getElementById('loginBtnText');
+            const btnIcon = document.getElementById('loginBtnIcon');
+            const status = document.getElementById('loginStatus');
+
+            const email = document.getElementById('emailInput').value.trim();
+            const pw = document.getElementById('pwInput').value;
+
+            if (!email || !pw) {
+                status.textContent = 'Please fill in all fields.';
+                status.className = 'login-status error';
+                return;
+            }
+
+            btnText.textContent = 'Signing in...';
+            btnIcon.className = 'fa-solid fa-spinner fa-spin';
+            btn.disabled = true;
+            status.textContent = '';
+            status.className = 'login-status';
+
+            // Simulated auth — replace with real auth later
+            await new Promise(r => setTimeout(r, 1800));
+
+            btnText.textContent = 'Sign In';
+            btnIcon.className = 'fa-solid fa-arrow-right';
+            btn.disabled = false;
+
+            status.innerHTML = '<i class="fa-solid fa-tools"></i> Authentication is being set up. Feature coming soon.';
+            status.className = 'login-status info';
+        });
+    </script>
+
+</body>
+</html>

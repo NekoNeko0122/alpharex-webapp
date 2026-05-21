@@ -12,6 +12,10 @@
 </head>
 <body>
 
+    <!-- Custom cursor (desktop only) -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
+
     <!-- ===== TOP NAVBAR ===== -->
     <nav class="top-nav" id="top-nav">
         <div class="nav-inner">
@@ -29,8 +33,11 @@
             </ul>
 
             <div class="nav-right">
+                <a href="/login.html" class="nav-login-btn">
+                    <i class="fa-solid fa-user"></i> Login
+                </a>
                 <a href="/" class="nav-cta">
-                    <i class="fa-solid fa-arrow-left"></i> Main Site
+                    <i class="fa-solid fa-arrow-left"></i> Landing
                 </a>
                 <button class="nav-toggle" id="nav-toggle" onclick="toggleMobileNav()" aria-label="Toggle navigation">
                     <i class="fas fa-bars" id="nav-icon"></i>
@@ -44,12 +51,15 @@
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <p class="hero-eyebrow">ALPHAREX OPC</p>
-            <h1>Building<br><span>Your Vision</span></h1>
-            <p class="hero-sub">
-                From meticulous electrical installations to innovative fit-out works —
-                we deliver excellence, integrity, and innovation on every project.
+            <h1 id="heroHeading">
+                <span class="hero-line" id="heroLine1">Your Power,</span>
+                <span class="hero-line hero-line-accent" id="heroLine2">Our Passion</span>
+            </h1>
+            <p class="hero-sub" id="heroSub">
+                At <strong>ALPHAREX</strong>, challenges are not obstacles — they are opportunities
+                for growth and innovation. We deliver excellence on every project.
             </p>
-            <div class="hero-btns">
+            <div class="hero-btns" id="heroBtns">
                 <button class="btn-primary" onclick="navScroll('services')">
                     <i class="fa-solid fa-person-digging"></i> Our Services
                 </button>
@@ -65,21 +75,21 @@
     </section>
 
     <!-- ===== STATS BAR ===== -->
-    <div class="stats-bar">
+    <div class="stats-bar" id="statsBar">
         <div class="stat reveal">
-            <h2>15<span>+</span></h2>
+            <h2><span class="count-num" data-target="15" data-suffix="+">0</span></h2>
             <p>Valued Clients</p>
         </div>
         <div class="stat reveal">
-            <h2>6<span></span></h2>
+            <h2><span class="count-num" data-target="6" data-suffix="">0</span></h2>
             <p>Core Services</p>
         </div>
         <div class="stat reveal">
-            <h2>100<span>%</span></h2>
+            <h2><span class="count-num" data-target="100" data-suffix="%">0</span></h2>
             <p>Commitment</p>
         </div>
         <div class="stat reveal">
-            <h2>24<span>/7</span></h2>
+            <h2><span class="count-num" data-target="24" data-suffix="/7">0</span></h2>
             <p>Support</p>
         </div>
     </div>
@@ -244,75 +254,174 @@
     </footer>
 
     <script>
-        // ---- NAVBAR SCROLL EFFECT ----
+        // ═══════════════════════════════════════
+        //  CUSTOM CURSOR (pointer devices only)
+        // ═══════════════════════════════════════
+        const cursorDot  = document.getElementById('cursor-dot');
+        const cursorRing = document.getElementById('cursor-ring');
+
+        if (window.matchMedia('(pointer: fine)').matches) {
+            document.body.classList.add('has-cursor');
+            let mx = 0, my = 0, rx = 0, ry = 0;
+
+            document.addEventListener('mousemove', e => {
+                mx = e.clientX; my = e.clientY;
+                cursorDot.style.left  = mx + 'px';
+                cursorDot.style.top   = my + 'px';
+            });
+
+            (function lerp() {
+                rx += (mx - rx) * 0.11;
+                ry += (my - ry) * 0.11;
+                cursorRing.style.left = rx + 'px';
+                cursorRing.style.top  = ry + 'px';
+                requestAnimationFrame(lerp);
+            })();
+
+            const hoverTargets = 'a, button, .service-card, .client-card, .value-card, .nav-link, .stat, .misvis-card';
+            document.querySelectorAll(hoverTargets).forEach(el => {
+                el.addEventListener('mouseenter', () => { cursorDot.classList.add('hovered'); cursorRing.classList.add('hovered'); });
+                el.addEventListener('mouseleave', () => { cursorDot.classList.remove('hovered'); cursorRing.classList.remove('hovered'); });
+            });
+
+            document.addEventListener('mousedown', () => cursorDot.classList.add('clicking'));
+            document.addEventListener('mouseup',   () => cursorDot.classList.remove('clicking'));
+            document.addEventListener('mouseleave', () => { cursorDot.style.opacity = '0'; cursorRing.style.opacity = '0'; });
+            document.addEventListener('mouseenter', () => { cursorDot.style.opacity = '1'; cursorRing.style.opacity = '1'; });
+        }
+
+        // ═══════════════════════════════════════
+        //  HERO TEXT LETTER ANIMATION
+        // ═══════════════════════════════════════
+        function buildLetters(el, baseDelay) {
+            const text = el.textContent;
+            el.textContent = '';
+            let t = baseDelay;
+            [...text].forEach(ch => {
+                const s = document.createElement('span');
+                s.className = 'letter';
+                s.textContent = ch === ' ' ? ' ' : ch;
+                s.style.animationDelay = t + 's';
+                if (ch !== ' ') t += 0.045;
+                el.appendChild(s);
+            });
+        }
+
+        window.addEventListener('load', () => {
+            buildLetters(document.getElementById('heroLine1'), 0.5);
+            buildLetters(document.getElementById('heroLine2'), 1.3);
+        });
+
+        // ═══════════════════════════════════════
+        //  NAVBAR SCROLL
+        // ═══════════════════════════════════════
         const nav = document.getElementById('top-nav');
         window.addEventListener('scroll', () => {
             nav.classList.toggle('scrolled', window.scrollY > 60);
         }, { passive: true });
 
-        // ---- MOBILE NAV TOGGLE ----
+        // ═══════════════════════════════════════
+        //  MOBILE NAV TOGGLE
+        // ═══════════════════════════════════════
         function toggleMobileNav() {
             const links = document.getElementById('nav-links');
-            const icon = document.getElementById('nav-icon');
+            const icon  = document.getElementById('nav-icon');
             links.classList.toggle('open');
             icon.className = links.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
         }
 
-        // ---- SMOOTH SCROLL + CLOSE MOBILE NAV ----
+        // ═══════════════════════════════════════
+        //  SMOOTH SCROLL
+        // ═══════════════════════════════════════
         function navScroll(id) {
             const el = document.getElementById(id);
             if (!el) return;
-            const offset = document.getElementById('top-nav').offsetHeight;
-            const top = el.getBoundingClientRect().top + window.scrollY - offset;
-            window.scrollTo({ top, behavior: 'smooth' });
+            const offset = nav.offsetHeight;
+            window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - offset, behavior: 'smooth' });
             document.getElementById('nav-links').classList.remove('open');
             document.getElementById('nav-icon').className = 'fas fa-bars';
         }
 
-        // ---- ACTIVE NAV LINK ON SCROLL ----
+        // ═══════════════════════════════════════
+        //  ACTIVE NAV ON SCROLL
+        // ═══════════════════════════════════════
         const sections = ['hero', 'services', 'clients', 'company', 'contact'];
-        const navLinks = document.querySelectorAll('.nav-link');
+        const navLinks  = document.querySelectorAll('.nav-link');
 
         window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY + 120;
-            let current = 'hero';
-            sections.forEach(id => {
-                const el = document.getElementById(id);
-                if (el && el.offsetTop <= scrollY) current = id;
-            });
-            navLinks.forEach(link => {
-                link.classList.toggle('active', link.getAttribute('href') === '#' + current);
-            });
+            const y = window.scrollY + 130;
+            let cur = 'hero';
+            sections.forEach(id => { const el = document.getElementById(id); if (el && el.offsetTop <= y) cur = id; });
+            navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
         }, { passive: true });
 
-        // ---- REVEAL ON SCROLL ----
-        const revealObserver = new IntersectionObserver((entries) => {
+        // ═══════════════════════════════════════
+        //  REVEAL ON SCROLL
+        // ═══════════════════════════════════════
+        const revealObs = new IntersectionObserver((entries) => {
             entries.forEach((entry, i) => {
                 if (entry.isIntersecting) {
-                    setTimeout(() => entry.target.classList.add('visible'), i * 50);
-                    revealObserver.unobserve(entry.target);
+                    setTimeout(() => entry.target.classList.add('visible'), i * 55);
+                    revealObs.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.08 });
+        document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
-        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+        // ═══════════════════════════════════════
+        //  COUNTUP STATS
+        // ═══════════════════════════════════════
+        function countUp(el) {
+            const target = parseInt(el.dataset.target);
+            const suffix = el.dataset.suffix || '';
+            const dur    = 1600;
+            const step   = target / (dur / 16);
+            let val = 0;
+            const tick = () => {
+                val = Math.min(val + step, target);
+                el.textContent = Math.floor(val) + suffix;
+                if (val < target) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+        }
 
-        // ---- CONTACT FORM (Web3Forms) ----
+        const statsObs = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting) {
+                document.querySelectorAll('.count-num').forEach(countUp);
+                statsObs.disconnect();
+            }
+        }, { threshold: 0.5 });
+
+        const statsBar = document.getElementById('statsBar');
+        if (statsBar) statsObs.observe(statsBar);
+
+        // ═══════════════════════════════════════
+        //  HERO PARALLAX
+        // ═══════════════════════════════════════
+        const heroSection = document.getElementById('hero');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY < window.innerHeight) {
+                heroSection.style.backgroundPositionY = (window.scrollY * 0.45) + 'px';
+            }
+        }, { passive: true });
+
+        // ═══════════════════════════════════════
+        //  CONTACT FORM (Web3Forms)
+        // ═══════════════════════════════════════
         document.getElementById('guestContactForm').addEventListener('submit', async function (e) {
             e.preventDefault();
-            const btn = document.getElementById('guestSubmitBtn');
+            const btn    = document.getElementById('guestSubmitBtn');
             const status = document.getElementById('formStatus');
-            const origText = btn.innerHTML;
+            const orig   = btn.innerHTML;
 
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
-            btn.disabled = true;
+            btn.disabled  = true;
             status.textContent = '';
-            status.className = 'form-status';
+            status.className   = 'form-status';
 
             const data = Object.fromEntries(new FormData(this).entries());
-
             try {
-                const res = await fetch('https://api.web3forms.com/submit', {
+                const res    = await fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                     body: JSON.stringify(data)
@@ -320,18 +429,18 @@
                 const result = await res.json();
                 if (result.success) {
                     status.textContent = "Message sent! We'll get back to you soon.";
-                    status.className = 'form-status success';
+                    status.className   = 'form-status success';
                     this.reset();
                 } else {
                     status.textContent = 'Failed to send. Please try again.';
-                    status.className = 'form-status error';
+                    status.className   = 'form-status error';
                 }
             } catch {
                 status.textContent = 'An error occurred. Please try again.';
-                status.className = 'form-status error';
+                status.className   = 'form-status error';
             } finally {
-                btn.innerHTML = origText;
-                btn.disabled = false;
+                btn.innerHTML = orig;
+                btn.disabled  = false;
             }
         });
     </script>

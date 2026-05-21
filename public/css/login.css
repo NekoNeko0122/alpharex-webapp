@@ -1,0 +1,541 @@
+/* ===================================================
+   ALPHAREX — LOGIN PAGE  (login.css)
+   =================================================== */
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: "Chakra Petch", serif;
+    font-weight: 300;
+    background-color: #1a0f0f;
+    background-image: url(../img/bghome4.png);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Blueprint grid overlay */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 218, 179, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 218, 179, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Dark overlay */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(15, 8, 8, 0.92) 0%, rgba(30, 15, 15, 0.82) 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ── Back nav ── */
+.back-nav {
+    position: fixed;
+    top: 20px;
+    left: 24px;
+    z-index: 100;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 218, 179, 0.55);
+    text-decoration: none;
+    font-family: "Roboto Slab", serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: color 0.22s ease;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,218,179,0.08);
+}
+
+.back-nav:hover {
+    color: #FFDAB3;
+    background: rgba(255,218,179,0.06);
+    border-color: rgba(255,218,179,0.2);
+}
+
+/* ── Layout ── */
+.login-page {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    min-height: 100vh;
+}
+
+.login-panel {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 40px;
+}
+
+/* ── Left: Login card ── */
+.card-panel {
+    max-width: 560px;
+    flex: 0 0 560px;
+}
+
+@media (max-width: 1024px) {
+    .card-panel { flex: 1; max-width: 100%; }
+    .brand-panel { display: none; }
+}
+
+.login-card {
+    width: 100%;
+    max-width: 480px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 218, 179, 0.12);
+    border-radius: 24px;
+    padding: 44px 40px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    animation: cardEnter 0.75s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+@keyframes cardEnter {
+    from {
+        opacity: 0;
+        transform: translateY(36px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Brand */
+.login-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 30px;
+    animation: fadeDown 0.6s ease both 0.2s;
+}
+
+@keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.login-logo {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+}
+
+.login-textlogo {
+    width: 140px;
+    object-fit: contain;
+    margin-top: -6px;
+    /* invert to white for dark bg */
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+}
+
+/* Type selector */
+.type-selector {
+    display: flex;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 218, 179, 0.08);
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 28px;
+    animation: fadeDown 0.6s ease both 0.35s;
+}
+
+.type-btn {
+    flex: 1;
+    padding: 10px 8px;
+    border: none;
+    border-radius: 9px;
+    background: transparent;
+    color: rgba(255, 218, 179, 0.4);
+    font-family: "Chakra Petch", serif;
+    font-weight: 600;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.type-btn.active {
+    background: #b33232;
+    color: white;
+    box-shadow: 0 4px 16px rgba(179, 50, 50, 0.4);
+}
+
+.type-btn:hover:not(.active) {
+    color: #FFDAB3;
+    background: rgba(255, 218, 179, 0.06);
+}
+
+/* Heading */
+.login-heading {
+    margin-bottom: 24px;
+    animation: fadeDown 0.6s ease both 0.45s;
+}
+
+.login-heading h2 {
+    font-family: "Bruno Ace SC", serif;
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 5px;
+    letter-spacing: 0.5px;
+}
+
+.login-heading p {
+    font-size: 0.85rem;
+    color: rgba(255, 218, 179, 0.45);
+    font-weight: 400;
+}
+
+/* Form */
+.login-form {
+    animation: fadeDown 0.6s ease both 0.55s;
+}
+
+.input-wrap {
+    position: relative;
+    margin-bottom: 14px;
+}
+
+.input-wrap input {
+    width: 100%;
+    padding: 14px 14px 14px 44px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 218, 179, 0.12);
+    border-radius: 12px;
+    color: white;
+    font-family: "Chakra Petch", serif;
+    font-size: 0.93rem;
+    transition: all 0.25s ease;
+    outline: none;
+}
+
+.input-wrap input::placeholder {
+    color: rgba(255, 255, 255, 0.28);
+}
+
+.input-wrap input:focus {
+    border-color: #FFDAB3;
+    background: rgba(255, 218, 179, 0.06);
+    box-shadow: 0 0 0 3px rgba(255, 218, 179, 0.08);
+}
+
+.input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 218, 179, 0.3);
+    font-size: 0.88rem;
+    transition: color 0.25s ease;
+    pointer-events: none;
+}
+
+.input-wrap:focus-within .input-icon {
+    color: #FFDAB3;
+}
+
+/* Password toggle */
+.pw-eye {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255, 218, 179, 0.3);
+    cursor: pointer;
+    font-size: 0.88rem;
+    padding: 4px;
+    transition: color 0.2s ease;
+}
+
+.pw-eye:hover { color: #FFDAB3; }
+
+/* Extras row */
+.form-extras {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+    margin-top: 4px;
+}
+
+/* Custom checkbox */
+.remember-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 218, 179, 0.5);
+    font-size: 0.82rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.remember-label input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    accent-color: #b33232;
+    cursor: pointer;
+}
+
+.forgot-link {
+    font-size: 0.82rem;
+    color: rgba(255, 218, 179, 0.5);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.forgot-link:hover { color: #FFDAB3; }
+
+/* Submit button */
+.login-btn {
+    width: 100%;
+    padding: 15px;
+    background: #b33232;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: "Chakra Petch", serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 6px 22px rgba(179, 50, 50, 0.4);
+}
+
+.login-btn:hover:not(:disabled) {
+    background: #FFDAB3;
+    color: #2d1f1f;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(255, 218, 179, 0.25);
+}
+
+.login-btn:active:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+.login-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Status message */
+.login-status {
+    text-align: center;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    margin-top: 14px;
+    min-height: 18px;
+    transition: all 0.3s ease;
+}
+
+.login-status.error {
+    background: rgba(179, 50, 50, 0.12);
+    color: #f08080;
+    border: 1px solid rgba(179, 50, 50, 0.2);
+}
+
+.login-status.info {
+    background: rgba(255, 218, 179, 0.08);
+    color: rgba(255, 218, 179, 0.75);
+    border: 1px solid rgba(255, 218, 179, 0.15);
+}
+
+/* Card footer links */
+.card-footer-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+    font-size: 0.82rem;
+    color: rgba(255, 218, 179, 0.35);
+    animation: fadeDown 0.6s ease both 0.7s;
+}
+
+.card-footer-links a {
+    color: #FFDAB3;
+    text-decoration: none;
+    font-weight: 600;
+    transition: opacity 0.2s ease;
+}
+
+.card-footer-links a:hover { opacity: 0.75; }
+
+/* ── Right: Brand panel ── */
+.brand-panel {
+    flex: 1;
+    background: linear-gradient(150deg, rgba(30,15,15,0.6) 0%, rgba(100,30,30,0.2) 100%);
+    border-left: 1px solid rgba(255, 218, 179, 0.06);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle construction line decorations */
+.brand-panel::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    border: 80px solid rgba(179, 50, 50, 0.06);
+    pointer-events: none;
+}
+
+.brand-panel::after {
+    content: '';
+    position: absolute;
+    bottom: -15%;
+    left: -15%;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    border: 60px solid rgba(255, 218, 179, 0.04);
+    pointer-events: none;
+}
+
+.brand-panel-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 480px;
+    padding: 0 20px;
+    animation: slideRight 0.9s cubic-bezier(0.23, 1, 0.32, 1) both 0.3s;
+}
+
+@keyframes slideRight {
+    from { opacity: 0; transform: translateX(40px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+.brand-eyebrow {
+    font-family: "Roboto Slab", serif;
+    font-size: 0.78rem;
+    color: #b33232;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+}
+
+.brand-quote h1 {
+    font-family: "Bruno Ace SC", serif;
+    font-size: clamp(2.5rem, 4vw, 3.8rem);
+    color: white;
+    line-height: 1.05;
+    margin-bottom: 24px;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.3);
+}
+
+.brand-quote h1 span { color: #FFDAB3; }
+
+.brand-sub {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.75;
+    margin-bottom: 32px;
+    font-weight: 400;
+    max-width: 360px;
+}
+
+.brand-values {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 36px;
+}
+
+.brand-values li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: "Roboto Slab", serif;
+    font-size: 0.9rem;
+    color: rgba(255, 218, 179, 0.7);
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.brand-values li i {
+    color: #b33232;
+    font-size: 0.85rem;
+}
+
+.brand-main-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 12px 24px;
+    border: 1.5px solid rgba(255, 218, 179, 0.2);
+    border-radius: 30px;
+    color: rgba(255, 218, 179, 0.65);
+    text-decoration: none;
+    font-family: "Roboto Slab", serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.brand-main-link:hover {
+    background: rgba(255, 218, 179, 0.08);
+    border-color: #FFDAB3;
+    color: #FFDAB3;
+    transform: translateX(6px);
+}
+
+/* ── Admin variant: accent becomes darker red ── */
+.login-card[data-type="admin"] .type-btn.active {
+    background: #8b1f1f;
+    box-shadow: 0 4px 16px rgba(139, 31, 31, 0.5);
+}
+
+.login-card[data-type="admin"] .input-wrap input:focus {
+    border-color: #f08080;
+    box-shadow: 0 0 0 3px rgba(240, 128, 128, 0.08);
+}
+
+.login-card[data-type="admin"] .input-wrap:focus-within .input-icon {
+    color: #f08080;
+}
+
+.login-card[data-type="admin"] .login-btn {
+    background: #8b1f1f;
+    box-shadow: 0 6px 22px rgba(139, 31, 31, 0.45);
+}
+
+.login-card[data-type="admin"] .login-btn:hover:not(:disabled) {
+    background: #c44040;
+    color: white;
+}

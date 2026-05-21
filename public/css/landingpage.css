@@ -197,15 +197,23 @@ footer {
 }
 
 .side-guest {
-    margin-top: -10px;
-    color: #44474b;
-    font-size: 0.9rem;
+    margin-top: 6px;
+    color: #b33232;
+    font-size: 0.88rem;
+    font-weight: 700;
     cursor: pointer;
-    transition: color 0.2s ease;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    transition: all 0.25s ease;
+    border: 1.5px solid rgba(179, 50, 50, 0.3);
 }
 
 .side-guest:hover {
-    color: #b33232;
+    background-color: #b33232;
+    color: white;
+    border-color: #b33232;
+    transform: none;
 }
 
 .dropdown {

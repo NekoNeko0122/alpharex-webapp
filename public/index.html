@@ -62,12 +62,12 @@
                     <i class="fa-solid fa-chevron-down drp-arrow"></i>
                     <div class="dropdown">
                         <ul>
-                            <li class="drp-item"><i class="fa-solid fa-user-tie"></i> Client</li>
-                            <li class="drp-item"><i class="fa-solid fa-user-shield"></i> Admin</li>
+                            <li class="drp-item" onclick="window.location.href='/login.html?type=client'"><i class="fa-solid fa-user-tie"></i> Client</li>
+                            <li class="drp-item" onclick="window.location.href='/login.html?type=admin'"><i class="fa-solid fa-user-shield"></i> Admin</li>
                         </ul>
                     </div>
                 </li>
-                <li class="side-guest">Continue as Guest</li>
+                <li class="side-guest" onclick="window.location.href='/main'">Go to Main Site</li>
             </ul>
             <footer>
                 <p>Copyright © 2025 Alpharex, OPC</p>
@@ -116,7 +116,7 @@
                                 <svg width="24" height="24" class="arr-1">
                                     <use href="#arrow-right-black"></use>
                                 </svg>
-                                <span class="buttontext" id="home-guest-btn">Continue as Guest</span>
+                                <span class="buttontext" id="home-guest-btn">Go to Main Site</span>
                                 <svg width="24" height="24" class="arr-2">
                                     <use href="#arrow-right"></use>
                                 </svg>
